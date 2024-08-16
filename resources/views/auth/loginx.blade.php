@@ -28,6 +28,9 @@
         <br>
         <input type="password" id="password" name="password">
         <br>
+        <input type="checkbox" name="remember" id="remember">
+        <label for="remember">{{ __('auth.inputs.remember_me') }}</label>
+        <br>
         <button type="submit">{{ __('auth.inputs.login') }}</button>
         <br>
         <a href="{{ route('register') }}">{{ __('register.create_account') }}</a>

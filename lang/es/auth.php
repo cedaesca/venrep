@@ -6,6 +6,7 @@ return [
     'password' => 'La contraseña proporcionada es incorrecta.',
     'throttle' => 'Demasiados intentos, por favor intente de nuevo en :seconds segundos.',
     'inputs' => [
-        'login' => 'Iniciar sesión'
+        'login' => 'Iniciar sesión',
+        'remember_me' => 'Recuérdame'
     ]
 ];

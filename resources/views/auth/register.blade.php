@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registro - {{ config('app.name') }}</title>
+    <title>{{ __('register.view_title') }} - {{ config('app.name') }}</title>
 </head>
 
 <body>
@@ -44,6 +44,8 @@
             <br>
         @enderror
         <button type="submit">{{ __('register.inputs.register_button') }}</button>
+        <br>
+        <a href="{{ route('login') }}">{{ __('auth.inputs.login') }}</a>
     </form>
 </body>
 

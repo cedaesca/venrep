@@ -26,5 +26,9 @@ return [
         'resend_email' => 'Reenviar correo',
         'resend_success' => 'Se ha reenviado el correo de verificación a :email, debe esperar 5 minutos para reenviar nuevamente.',
         'resend_throttled' => 'Debe esperar 5 minutos para utilizar nuevamente ésta función.'
+    ],
+    'forgot_password' => [
+        'view_title' => 'Contraseña olvidada',
+        'forgot_password' => 'Olvidé mi contraseña'
     ]
 ];

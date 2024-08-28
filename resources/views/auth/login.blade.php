@@ -20,11 +20,11 @@
                 </ul>
             </div>
         @endif
-        <label for="email">{{ __('register.inputs.email') }}</label>
+        <label for="email">{{ __('auth.register.inputs.email') }}</label>
         <br>
         <input type="email" id="email" name="email" value="{{ old('email') }}">
         <br>
-        <label for="password">{{ __('register.inputs.password') }}</label>
+        <label for="password">{{ __('auth.register.inputs.password') }}</label>
         <br>
         <input type="password" id="password" name="password">
         <br>
@@ -33,7 +33,9 @@
         <br>
         <button type="submit">{{ __('auth.inputs.login') }}</button>
         <br>
-        <a href="{{ route('register') }}">{{ __('register.create_account') }}</a>
+        <a href="{{ route('register') }}">{{ __('auth.register.create_account') }}</a>
+        <br>
+        <a href="{{ route('password.request') }}">{{ __('auth.forgot_password.forgot_password') }}</a>
     </form>
 </body>
 

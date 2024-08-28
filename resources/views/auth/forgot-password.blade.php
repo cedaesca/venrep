@@ -9,7 +9,28 @@
 </head>
 
 <body>
-
+    @if ($errors->any())
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (session('status'))
+        <div>
+            {{ session('status') }}
+        </div>
+    @endif
+    <form action="{{ route('password.request') }}" method="post">
+        @csrf
+        <label for="email">{{ __('auth.register.inputs.email') }}</label>
+        <br>
+        <input type="email" name="email" id="email">
+        <br>
+        <button type="submit">{{ __('general.submit') }}</button>
+    </form>
 </body>
 
 </html>

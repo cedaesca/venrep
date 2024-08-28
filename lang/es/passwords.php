@@ -1,9 +1,11 @@
 <?php
 
+$formSubmitted = 'En caso de que la cuenta exista, un correo electrónico con instrucciones para reestablecer la contraseña ha sido enviado.';
+
 return [
     'reset' => 'Su contraseña ha sido cambiada.',
-    'sent' => 'Le hemos enviado un correo de cambio de contraseña.',
+    'sent' => $formSubmitted,
     'throttled' => 'Por favor, espere antes de intentarlo de nuevo.',
     'token' => 'El código de cambio de contraseña es inválido.',
-    'user' => 'No podemos encontrar un usuario con ese nombre.',
+    'user' => $formSubmitted,
 ];

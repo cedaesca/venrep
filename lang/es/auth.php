@@ -29,6 +29,9 @@ return [
     ],
     'forgot_password' => [
         'view_title' => 'Contraseña olvidada',
-        'forgot_password' => 'Olvidé mi contraseña'
-    ]
+        'forgot_password' => 'Olvidé mi contraseña',
+    ],
+    'reset_password' => [
+        'view_title' => 'Reestablecer contraseña'
+    ],
 ];

@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->renderable(function (ThrottleRequestsException $e, $request) {
             $headers = $e->getHeaders();
             $retryAfter = $headers['Retry-After'];
-            return Redirect::back()->withErrors(['throttled' => "Demasiados intentos. Prueba de nuevo en {$retryAfter} segundos"]);
+
+            return Redirect::back()->withErrors(['throttled' => __('general.throttled', ['seconds' => $retryAfter])]);
         });
     })->create();

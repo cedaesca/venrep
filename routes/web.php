@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware([Authenticate::class, EnsureEmailIsVerified::class])->group(function () {
+    Route::get('/', fn() => view('welcome'));
 });

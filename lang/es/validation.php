@@ -177,9 +177,9 @@ return [
     */
 
     'attributes' => [
-        'username' => strtolower(__('register.inputs.username')),
-        'email' => strtolower(__('register.inputs.email')),
-        'password' => strtolower(__('register.inputs.password')),
-        'password_confirmation' => strtolower(__('register.inputs.password_confirmation'))
+        'username' => strtolower(__('auth.register.inputs.username')),
+        'email' => strtolower(__('auth.register.inputs.email')),
+        'password' => strtolower(__('auth.register.inputs.password')),
+        'password_confirmation' => strtolower(__('auth.register.inputs.password_confirmation'))
     ],
 ];

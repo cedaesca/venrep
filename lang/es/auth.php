@@ -8,6 +8,17 @@ return [
         'login' => 'Iniciar sesión',
         'remember_me' => 'Recuérdame'
     ],
+    'register' => [
+        'view_title' => 'Registro',
+        'create_account' => 'Crear una cuenta',
+        'inputs' => [
+            'username' => 'Nombre de usuario',
+            'email' => 'Correo electrónico',
+            'password' => 'Contraseña',
+            'password_confirmation' => 'Confirme la contraseña',
+            'register_button' => 'Registrarme'
+        ]
+    ],
     'verify_email' => [
         'view_title' => 'Verificar correo electrónico',
         'notification' => 'Se ha enviado un correo de verificación a :email y debe seguir los pasos para poder utilizar la aplicación.',

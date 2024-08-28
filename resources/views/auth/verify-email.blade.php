@@ -5,33 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Verificar correo electrónico - {{ config('app.name') }}</title>
-    @vite('resources/js/auth/verify-email.js')
 </head>
 
 <body>
-    <div>
-        {{ __('verify_email.notification', ['email' => Auth::user()->email]) }}
-    </div>
+    @if ($errors->has('throttled'))
+        <div>
+            {{ $errors->first('throttled') }}
+        </div>
+    @else
+        <div>
+            {{ __('verify_email.notification', ['email' => Auth::user()->email]) }}
+        </div>
+    @endif
     <br>
     <div>
         {{ __('verify_email.no_email_received_prompt') }}
         <div>
+            <div id='error-message' style="display: none;"></div>
             <form id="resend-verification" action="{{ route('verification.send') }}" method="POST">
                 @csrf
-                @if ($errors->any())
-                    <div>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <button id="submit-verification" type="submit">{{ __('verify_email.resend_email') }}</button>
                 <span id="resend-message">
+            </form>
         </div>
-        </form>
     </div>
     </div>
 </body>

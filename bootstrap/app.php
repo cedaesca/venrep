@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Illuminate\Support\Facades\Redirect;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,5 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->renderable(function (ThrottleRequestsException $e, $request) {
+            $headers = $e->getHeaders();
+            $retryAfter = $headers['Retry-After'];
+            return Redirect::back()->withErrors(['throttled' => "Demasiados intentos. Prueba de nuevo en {$retryAfter} segundos"]);
+        });
     })->create();

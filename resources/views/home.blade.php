@@ -1,39 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite(['resources/scss/app.scss', 'resources/js/app.js'])
-    <title>Inicio</title>
-</head>
+@section('title', __('general.home'))
 
-<body>
-    <div class="alert alert-primary" role="alert">
-        A simple primary alert—check it out!
+@section('content')
+    <div>
+        <h1 class="h1">Bienvenido a {{ config('app.name') }}, {{ Auth::user()->username }}</h1>
     </div>
-    <div class="alert alert-secondary" role="alert">
-        A simple secondary alert—check it out!
-    </div>
-    <div class="alert alert-success" role="alert">
-        A simple success alert—check it out!
-    </div>
-    <div class="alert alert-danger" role="alert">
-        A simple danger alert—check it out!
-    </div>
-    <div class="alert alert-warning" role="alert">
-        A simple warning alert—check it out!
-    </div>
-    <div class="alert alert-info" role="alert">
-        A simple info alert—check it out!
-    </div>
-    <div class="alert alert-light" role="alert">
-        A simple light alert—check it out!
-    </div>
-    <div class="alert alert-dark" role="alert">
-        A simple dark alert—check it out!
-    </div>
-</body>
-
-</html>
+@endsection

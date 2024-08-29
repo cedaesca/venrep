@@ -52,7 +52,7 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('email-verification', function (Request $request) {
             $userId = $request->user()->id;
 
-            return Limit::perMinutes(decayMinutes: 5, maxAttempts: 1)->by("send-verification:{$userId}");
+            return Limit::perMinutes(decayMinutes: 5, maxAttempts: 3)->by("send-verification:{$userId}");
         });
     }
 }

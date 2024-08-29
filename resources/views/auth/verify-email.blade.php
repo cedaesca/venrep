@@ -1,23 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ __('auth.verify_email.view_title') }} - {{ config('app.name') }}</title>
-</head>
+@section('title', __('auth.verify_email.view_title'))
 
-<body>
-    @if ($errors->has('throttled'))
-        <div>
-            {{ $errors->first('throttled') }}
+@section('content')
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card card-white-transparent col-md-6 p-4">
+            <div class="card-body">
+                <h2 class="text-center mb-4">
+                    {{ __('auth.register.success') }}
+                </h2>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <p>
+                    {{ __('auth.verify_email.notification', ['email' => Auth::user()->email]) }}
+                </p>
+
+                <hr>
+
+                <form action="{{ route('verification.send') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-primary w-100">{{ __('auth.verify_email.resend_email') }}</button>
+                </form>
+            </div>
         </div>
-    @else
-        <div>
-            {{ __('auth.verify_email.notification', ['email' => Auth::user()->email]) }}
-        </div>
-    @endif
+    </div>
+@endsection
+
+@section('content')
     <br>
     <div>
         {{ __('auth.verify_email.no_email_received_prompt') }}
@@ -25,11 +42,8 @@
             <form id="resend-verification" action="{{ route('verification.send') }}" method="POST">
                 @csrf
                 <button id="submit-verification" type="submit">{{ __('auth.verify_email.resend_email') }}</button>
-                <span id="resend-message">
             </form>
         </div>
     </div>
     </div>
-</body>
-
-</html>
+@endsection

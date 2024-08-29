@@ -1,42 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ __('auth.view_title') }} - {{ config('app.name') }}</title>
-</head>
+@section('title', __('auth.inputs.login'))
 
-<body>
-    <form action="{{ route('login') }}" method="POST">
-        @csrf
-        @if ($errors->any())
-            <div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+@section('content')
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card card-white-transparent col-md-6 p-4">
+            <div class="card-body">
+                <h2 class="text-center mb-4">{{ __('auth.inputs.login') }}</h2>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if (session('status'))
+                    <div class="alert alert-primary">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
+                <form action="{{ route('login') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="email" class="form-label">{{ __('auth.register.inputs.email') }}</label>
+                        <input type="email" name="email" class="form-control" id="email"
+                            placeholder="juanito@ejemplo.com" value="{{ old('email') }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">{{ __('auth.register.inputs.password') }}</label>
+                        <input type="password" name="password" class="form-control" id="password"
+                            placeholder="{{ __('auth.register.inputs.password') }}" required>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="remember" id="remember">
+                        <label class="form-check-label" for="remember">
+                            {{ __('auth.inputs.remember_me') }}
+                        </label>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary w-100">{{ __('auth.inputs.login') }}</button>
+                    <div class="d-flex justify-content-between mt-3">
+                        <a href="{{ route('register') }}"
+                            class="text-decoration-none">{{ __('auth.register.create_account') }}</a>
+                        <a href="{{ route('password.request') }}"
+                            class="text-decoration-none">{{ __('auth.forgot_password.forgot_password') }}</a>
+                    </div>
+                </form>
             </div>
-        @endif
-        <label for="email">{{ __('auth.register.inputs.email') }}</label>
-        <br>
-        <input type="email" id="email" name="email" value="{{ old('email') }}">
-        <br>
-        <label for="password">{{ __('auth.register.inputs.password') }}</label>
-        <br>
-        <input type="password" id="password" name="password">
-        <br>
-        <input type="checkbox" name="remember" id="remember">
-        <label for="remember">{{ __('auth.inputs.remember_me') }}</label>
-        <br>
-        <button type="submit">{{ __('auth.inputs.login') }}</button>
-        <br>
-        <a href="{{ route('register') }}">{{ __('auth.register.create_account') }}</a>
-        <br>
-        <a href="{{ route('password.request') }}">{{ __('auth.forgot_password.forgot_password') }}</a>
-    </form>
-</body>
-
-</html>
+        </div>
+    </div>
+@endsection

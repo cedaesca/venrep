@@ -5,5 +5,5 @@ use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware([Authenticate::class, EnsureEmailIsVerified::class])->group(function () {
-    Route::get('/', fn() => view('home'));
+    Route::get('/', fn() => view('home'))->name('home');
 });

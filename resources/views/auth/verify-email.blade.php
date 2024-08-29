@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ __('auth.verify_email.view_title') }} - {{ config('app.name') }}</title>
-</head>
+@section('title', __('auth.verify_email.view_title'))
 
-<body>
+@section('content')
     @if ($errors->has('throttled'))
         <div>
             {{ $errors->first('throttled') }}
@@ -30,6 +24,4 @@
         </div>
     </div>
     </div>
-</body>
-
-</html>
+@endsection

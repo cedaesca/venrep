@@ -10,10 +10,11 @@
 </head>
 
 <body>
-    <header role="navigation">
-        <x-navbar />
-    </header>
-
+    @auth
+        <header role="navigation">
+            <x-navbar />
+        </header>
+    @endauth
     <main>
         @yield('content')
     </main>

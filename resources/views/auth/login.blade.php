@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="card card-white-transparent col-md-4 p-4">
+        <div class="card card-white-transparent col-md-6 p-4">
             <div class="card-body">
                 <h2 class="text-center mb-4">{{ __('auth.inputs.login') }}</h2>
                 @if ($errors->any())

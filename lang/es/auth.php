@@ -17,7 +17,8 @@ return [
             'password' => 'Contraseña',
             'password_confirmation' => 'Confirme la contraseña',
             'register_button' => 'Registrarme'
-        ]
+        ],
+        'already_registered' => 'Ya tengo una cuenta'
     ],
     'verify_email' => [
         'view_title' => 'Verificar correo electrónico',

@@ -6,5 +6,9 @@ return [
     'home' => 'Inicio',
     'profile' => 'Perfil',
     'logout' => 'Cerrar sesión',
-    'groups' => 'Grupos'
+    'form_apply' => 'Aplicar',
+    'orders' => [
+        'asc' => 'Ascendente',
+        'desc' => 'Descendente'
+    ]
 ];

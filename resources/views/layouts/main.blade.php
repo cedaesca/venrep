@@ -15,7 +15,7 @@
             <x-navbar />
         </header>
     @endauth
-    <main>
+    <main class="pt-5">
         @yield('content')
     </main>
 </body>

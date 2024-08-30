@@ -37,11 +37,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        if ($user->id !== Auth::user()->id) {
-            abort(403);
-        }
-
-        return view('users.show');
+        return view('users.show', ['user' => $user]);
     }
 
     /**

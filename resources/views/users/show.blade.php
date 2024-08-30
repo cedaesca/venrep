@@ -1,31 +1,31 @@
 @extends('layouts.main')
 
-@section('title', Auth::user()->username)
+@section('title', $user->username)
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col">
-                <span class="h4">{{ Auth::user()->username }}</span>
+                <span class="h4">{{ $user->username }}</span>
                 <span> - </span>
-                <span class="clickable" id="add-vote" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    data-bs-title="{{ __('users.show.vote') }}">
+                <a href="#" class="text-decoration-none text-reset" id="add-vote" data-bs-toggle="tooltip"
+                    data-bs-placement="bottom" data-bs-title="{{ __('users.show.vote') }}">
                     <span class="text-success fw-medium"><i class="bi bi-arrow-up"></i>1</span>
                     <span>/</span>
                     <span class="text-danger fw-medium"><i class="bi bi-arrow-down"></i>1</span>
-                </span>
+                </a>
             </div>
             <div class="col text-end">
                 <i>
                     <span class="text-muted">
-                        {{ __('users.show.joined_at', ['date' => Auth::user()->created_at->translatedFormat('j \\d\\e F, Y')]) }}
+                        {{ __('users.show.joined_at', ['date' => $user->created_at->translatedFormat('j \\d\\e F, Y')]) }}
                     </span>
                 </i>
             </div>
         </div>
         <div class="row mt-2">
             <div class="col">
-                <i class="bi bi-mailbox"></i> {{ Auth::user()->email }}</p>
+                <i class="bi bi-mailbox"></i> {{ $user->email }}</p>
             </div>
         </div>
         <div class="row">
@@ -72,7 +72,6 @@
                     <th scope="col">{{ __('users.show.rep_history.columns.giver') }}</th>
                     <th scope="col">{{ __('users.show.rep_history.columns.type') }}</th>
                     <th scope="col">{{ __('users.show.rep_history.columns.transactions') }}</th>
-                    <th scope="col">{{ __('users.show.rep_history.columns.amount') }}</th>
                     <th scope="col">{{ __('users.show.rep_history.columns.date') }}</th>
                 </tr>
             </thead>

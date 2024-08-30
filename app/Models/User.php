@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -48,5 +49,15 @@ class User extends Authenticatable implements MustVerifyEmail
             'phone_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function receivedReputation(): HasMany
+    {
+        return $this->hasMany(Reputation::class, 'given_to');
+    }
+
+    public function issuedReputation(): HasMany
+    {
+        return $this->hasMany(Reputation::class, 'given_by');
     }
 }

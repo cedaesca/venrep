@@ -11,11 +11,12 @@ return [
                 'type' => 'Tipo de puntuación',
                 'transactions' => 'Tipo de transacciones',
                 'amount' => 'Montos manejados (referencial)',
-                'date' => 'Fecha'
+                'created_at' => 'Recibida',
             ]
         ],
         'notifications' => [
-            'unique_points' => 'Los puntos de reputación son únicos. No se puede recibir más de un punto (positivo o negativo) de un mismo usuario.'
+            'unique_points' => 'Los puntos de reputación son únicos. No se puede recibir más de un punto (positivo o negativo) de un mismo usuario.',
+            'be_safe' => 'VenRep es un sistema exclusivamente referencial y no da garantías de ningún tipo. Tomar las precauciones necesarias al hacer un negocio.'
         ]
     ]
 ];

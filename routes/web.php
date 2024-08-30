@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReputationsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
@@ -15,5 +16,12 @@ Route::middleware([Authenticate::class, EnsureEmailIsVerified::class])->group(fu
         $usersRoute = '/users';
 
         Route::get("{$usersRoute}/{user:username}", 'show')->name('users.show');
+    });
+
+    Route::controller(ReputationsController::class)->group(function () {
+        $reputationsRoute = '/users/{user:username}/reputations';
+
+        Route::get("{$reputationsRoute}/create", 'create')->name('reputations.create');
+        Route::post("{$reputationsRoute}/create", 'store')->name('reputations.store');
     });
 });

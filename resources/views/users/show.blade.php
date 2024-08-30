@@ -4,15 +4,37 @@
 
 @section('content')
     <div class="container">
+        @if ($user->id !== Auth::user()->id)
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-warning d-flex align-items-center">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        {{ __('users.show.notifications.be_safe') }}
+                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        @endif
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-primary d-flex align-items-center">
+                    <i class="bi bi-exclamation-circle me-2"></i>
+                    {{ __('users.show.notifications.unique_points') }}
+                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col">
                 <span class="h4">{{ $user->username }}</span>
                 <span> - </span>
-                <a href="#" class="text-decoration-none text-reset" id="add-vote" data-bs-toggle="tooltip"
-                    data-bs-placement="bottom" data-bs-title="{{ __('users.show.vote') }}">
-                    <span class="text-success fw-medium"><i class="bi bi-arrow-up"></i>1</span>
+                <a href="{{ route('reputations.create', ['user' => $user]) }}" class="text-decoration-none text-reset"
+                    id="add-vote" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    data-bs-title="{{ __('users.show.vote') }}">
+                    <span class="text-success fw-medium"><i class="bi bi-arrow-up"></i>{{ $pointsTotal['positive'] }}</span>
                     <span>/</span>
-                    <span class="text-danger fw-medium"><i class="bi bi-arrow-down"></i>1</span>
+                    <span class="text-danger fw-medium"><i
+                            class="bi bi-arrow-down"></i>{{ $pointsTotal['negative'] }}</span>
                 </a>
             </div>
             <div class="col text-end">
@@ -39,16 +61,7 @@
                 <span class="h4">{{ __('users.show.rep_history.heading') }}</span>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="alert alert-primary d-flex align-items-center">
-                    <i class="bi bi-exclamation-circle me-2"></i>
-                    {{ __('users.show.notifications.unique_points') }}
-                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-3">
+        <div class="row mb-3 mt-3">
             <div class="col-4">
                 <form class="d-flex align-items-center">
                     <label for="filter-type" class="form-label me-2">
@@ -72,24 +85,32 @@
                     <th scope="col">{{ __('users.show.rep_history.columns.giver') }}</th>
                     <th scope="col">{{ __('users.show.rep_history.columns.type') }}</th>
                     <th scope="col">{{ __('users.show.rep_history.columns.transactions') }}</th>
-                    <th scope="col">{{ __('users.show.rep_history.columns.date') }}</th>
+                    <th scope="col">{{ __('users.show.rep_history.columns.created_at') }}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">cedaesca</th>
-                    <td><span class="text-success"><i class="bi bi-arrow-up"></i>Positiva</span></td>
-                    <td>Zelle, USDT, Bolívares</td>
-                    <td>> USD 500</td>
-                    <td>hoy</td>
-                </tr>
-                <tr>
-                    <th scope="row">danhou</th>
-                    <td><span class="text-danger"><i class="bi bi-arrow-down"></i>Negativa</span></td>
-                    <td>Zelle, USDT, Bolívares</td>
-                    <td>> USD 500</td>
-                    <td>hoy</td>
-                </tr>
+                @foreach ($user->receivedReputation as $reputation)
+                    <tr>
+                        <th scope="row">
+                            <a href="{{ route('users.show', $reputation->issuer) }}">
+                                {{ $reputation->issuer->username }}
+                            </a>
+                        </th>
+                        <td>
+                            @if ($reputation->type === $positiveReputation)
+                                <span class="text-success">
+                                    <i class="bi bi-arrow-up"></i>{{ __('reputations.create.inputs.types.positive') }}
+                                </span>
+                            @else
+                                <span class="text-danger">
+                                    <i class="bi bi-arrow-down"></i>{{ __('reputations.create.inputs.types.negative') }}
+                                </span>
+                            @endif
+                        </td>
+                        <td>{{ implode(', ', $reputation->getRecommendedTransactions()) }}</td>
+                        <td>{{ $reputation->created_at->translatedFormat('j \\d\\e F, Y') }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
         <nav aria-label="Page navigation example">

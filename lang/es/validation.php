@@ -180,6 +180,7 @@ return [
         'username' => strtolower(__('auth.register.inputs.username')),
         'email' => strtolower(__('auth.register.inputs.email')),
         'password' => strtolower(__('auth.register.inputs.password')),
-        'password_confirmation' => strtolower(__('auth.register.inputs.password_confirmation'))
+        'password_confirmation' => strtolower(__('auth.register.inputs.password_confirmation')),
+        'rep_type' => strtolower(__('reputations.create.inputs.rep_type'))
     ],
 ];

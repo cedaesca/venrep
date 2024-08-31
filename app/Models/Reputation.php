@@ -52,9 +52,7 @@ class Reputation extends Model
         'positive' => 'positive',
     ];
 
-    protected $guarded = ['given_by'];
-
-    public $transactionRecomendationOptions = [
+    const TRANSACTION_TYPES = [
         'zelle',
         'binance',
         'cash',
@@ -62,6 +60,8 @@ class Reputation extends Model
         'paypal',
         'others'
     ];
+
+    protected $guarded = ['given_by'];
 
     public function issuer(): BelongsTo
     {
@@ -92,11 +92,11 @@ class Reputation extends Model
     {
         $recommendations = [];
 
-        foreach ($this->transactionRecomendationOptions as $recommendation) {
-            $recomendationProperty = "recommends_{$recommendation}";
+        foreach (self::TRANSACTION_TYPES as $type) {
+            $recomendationProperty = "recommends_{$type}";
 
             if ($this->{$recomendationProperty}) {
-                $recommendations[] = __("reputations.create.inputs.transaction_options.{$recommendation}");
+                $recommendations[] = __("reputations.create.inputs.transaction_options.{$type}");
             }
         }
 

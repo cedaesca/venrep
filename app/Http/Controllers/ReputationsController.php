@@ -28,14 +28,10 @@ class ReputationsController extends Controller
             return $this->handleAlreadyVoted($user);
         }
 
-        $validRecommendedTransactions = [
-            'recommends_zelle',
-            'recommends_cash',
-            'recommends_ves',
-            'recommends_binance',
-            'recommends_paypal',
-            'recommends_others',
-        ];
+        $validRecommendedTransactions = array_map(
+            fn($value) => "recommends_{$value}",
+            Reputation::TRANSACTION_TYPES
+        );
 
         $validated = $request->validate([
             'rep_type' => ['required', 'string', Rule::in(array_values(Reputation::TYPES))],

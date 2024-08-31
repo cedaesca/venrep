@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\ReputationType;
+use App\Models\Reputation;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +19,7 @@ class ReputationFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => $this->pickOne(ReputationType::POSITIVE->value, ReputationType::NEGATIVE->value),
+            'type' => $this->pickOne(Reputation::TYPES['positive'], Reputation::TYPES['negative']),
             'given_by' => User::factory(),
             'given_to' => User::factory(),
             'recommends_zelle' => $this->pickOne(true, false),

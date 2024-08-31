@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\ReputationType;
+use App\Models\Reputation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,7 +42,7 @@ class UsersController extends Controller
         return view('users.show', [
             'user' => $user,
             'pointsTotal' => $user->getTotalReputationPoints(),
-            'positiveReputation' => ReputationType::POSITIVE->value,
+            'positiveReputation' => Reputation::TYPES['positive'],
             'reputations' => $reputations,
             'hasVisitorVotedUser' => $user->hasBeenGivenRepBy(Auth::user())
         ]);

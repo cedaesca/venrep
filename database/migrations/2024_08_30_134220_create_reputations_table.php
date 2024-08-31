@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\ReputationType;
+use App\Models\Reputation;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('given_by')->constrained('users');
             $table->foreignId('given_to')->constrained('users');
-            $table->enum('type', [ReputationType::NEGATIVE->value, ReputationType::POSITIVE->value]);
+            $table->enum('type', [Reputation::TYPES]);
             $table->boolean('recommends_zelle')->default(false);
             $table->boolean('recommends_binance')->default(false);
             $table->boolean('recommends_ves')->default(false);

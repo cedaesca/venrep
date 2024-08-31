@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\ReputationType;
+use App\Models\Reputation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,10 +18,7 @@ class ReputationsController extends Controller
 
         return view('reputations.create', [
             'user' => $user,
-            'reputationTypes' => [
-                'positive' => ReputationType::POSITIVE->value,
-                'negative' => ReputationType::NEGATIVE->value
-            ]
+            'reputationTypes' => Reputation::TYPES
         ]);
     }
 
@@ -30,8 +27,6 @@ class ReputationsController extends Controller
         if ($user->hasBeenGivenRepBy(Auth::user())) {
             return $this->handleAlreadyVoted($user);
         }
-
-        $validReputationTypes = array_column(ReputationType::cases(), 'value');
 
         $validRecommendedTransactions = [
             'recommends_zelle',
@@ -43,7 +38,7 @@ class ReputationsController extends Controller
         ];
 
         $validated = $request->validate([
-            'rep_type' => ['required', 'string', Rule::in($validReputationTypes)],
+            'rep_type' => ['required', 'string', Rule::in(array_values(Reputation::TYPES))],
             'recommended_transactions' => ['required', 'array'],
             'recommended_transactions.*' => [Rule::in($validRecommendedTransactions), 'string']
         ]);

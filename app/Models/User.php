@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\ReputationType;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -116,14 +115,11 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getTotalReputationPoints(): array
     {
-        $positiveReputationType = ReputationType::POSITIVE->value;
-        $negativeReputationType = ReputationType::NEGATIVE->value;
-
         $reputationCounts = $this->receivedReputation()
             ->selectRaw(
                 "SUM(CASE WHEN type = ? THEN 1 ELSE 0 END) AS positive_count, 
                  SUM(CASE WHEN type = ? THEN 1 ELSE 0 END) AS negative_count",
-                [$positiveReputationType, $negativeReputationType]
+                [Reputation::TYPES['positive'], Reputation::TYPES['negative']]
             )
             ->first();
 

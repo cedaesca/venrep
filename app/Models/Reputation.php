@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\ReputationType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -48,6 +47,11 @@ class Reputation extends Model
 {
     use HasFactory;
 
+    const TYPES = [
+        'negative' => 'negative',
+        'positive' => 'positive',
+    ];
+
     protected $guarded = ['given_by'];
 
     public $transactionRecomendationOptions = [
@@ -71,12 +75,12 @@ class Reputation extends Model
 
     public function scopePositives($query)
     {
-        return $query->where('type', ReputationType::POSITIVE->value);
+        return $query->where('type', self::TYPES['positive']);
     }
 
     public function scopeNegatives($query)
     {
-        return $query->where('type', ReputationType::NEGATIVE->value);
+        return $query->where('type', self::TYPES['negative']);
     }
 
     /**

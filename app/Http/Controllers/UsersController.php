@@ -40,14 +40,18 @@ class UsersController extends Controller
     {
         $orderBy = $request->order ?? 'desc';
 
-        $user->load(['receivedReputation' => function ($query) use ($orderBy) {
-            $query->with('issuer')->orderBy('created_at', $orderBy);
-        }]);
+        $reputations = $user
+            ->receivedReputation()
+            ->with('issuer')
+            ->orderBy('created_at', $orderBy)
+            ->paginate(10)
+            ->appends($request->query());
 
         return view('users.show', [
             'user' => $user,
             'pointsTotal' => $user->getTotalReputationPoints(),
             'positiveReputation' => ReputationType::POSITIVE->value,
+            'reputations' => $reputations
         ]);
     }
 

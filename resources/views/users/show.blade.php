@@ -100,7 +100,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($user->receivedReputation as $reputation)
+                @foreach ($reputations as $reputation)
                     <tr>
                         <th scope="row">
                             <a href="{{ route('users.show', $reputation->issuer) }}">
@@ -124,18 +124,6 @@
                 @endforeach
             </tbody>
         </table>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link">{{ __('pagination.previous') }}</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">{{ __('pagination.next') }}</a>
-                </li>
-            </ul>
-        </nav>
+        {{ $reputations->links() }}
     </div>
 @endsection

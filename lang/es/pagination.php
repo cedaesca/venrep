@@ -1,6 +1,10 @@
 <?php
 
 return [
-    'previous' => 'Anterior',
-    'next'     => 'Siguiente',
+    'previous' => '&laquo; Anterior',
+    'next' => 'Siguiente &raquo;',
+    'showing' => 'Mostrando',
+    'to' => 'a',
+    'of' => 'de',
+    'results' => 'resultados',
 ];

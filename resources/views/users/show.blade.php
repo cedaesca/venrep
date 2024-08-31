@@ -28,7 +28,7 @@
             <div class="col">
                 <span class="h4">{{ $user->username }}</span>
                 <span> - </span>
-                <a href="{{ route('reputations.create', ['user' => $user]) }}" class="text-decoration-none text-reset"
+                <a href="{{ route('reputations.create', ['user' => $user]) }}" class="text-decoration-none text-reset fs-5"
                     id="add-vote" data-bs-toggle="tooltip" data-bs-placement="bottom"
                     data-bs-title="{{ __('users.show.vote') }}">
                     <span class="text-success fw-medium"><i class="bi bi-arrow-up"></i>{{ $pointsTotal['positive'] }}</span>

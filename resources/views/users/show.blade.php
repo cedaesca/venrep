@@ -119,7 +119,7 @@
                             @endif
                         </td>
                         <td>{{ implode(', ', $reputation->getRecommendedTransactions()) }}</td>
-                        <td>{{ $reputation->created_at }}</td>
+                        <td>{{ $reputation->created_at->translatedFormat('j \\d\\e F, Y \\a \\l\\a\\s H:i') }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -55,11 +55,14 @@ class UsersController extends Controller
             ->paginate(10)
             ->appends($request->query());
 
+        $hasVisitorVotedUser = $user->receivedReputation()->where(['given_by' => Auth::user()->id])->count();
+
         return view('users.show', [
             'user' => $user,
             'pointsTotal' => $user->getTotalReputationPoints(),
             'positiveReputation' => ReputationType::POSITIVE->value,
-            'reputations' => $reputations
+            'reputations' => $reputations,
+            'hasVisitorVotedUser' => $hasVisitorVotedUser > 0 ? true : false
         ]);
     }
 

@@ -32,14 +32,29 @@
             <div class="col">
                 <span class="h4">{{ $user->username }}</span>
                 <span> - </span>
-                <a href="{{ route('reputations.create', ['user' => $user]) }}" class="text-decoration-none text-reset fs-5"
-                    id="add-vote" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    data-bs-title="{{ __('users.show.vote') }}">
-                    <span class="text-success fw-medium"><i class="bi bi-arrow-up"></i>{{ $pointsTotal['positive'] }}</span>
-                    <span>/</span>
-                    <span class="text-danger fw-medium"><i
-                            class="bi bi-arrow-down"></i>{{ $pointsTotal['negative'] }}</span>
-                </a>
+                @if (!$hasVisitorVotedUser)
+                    <a href="{{ route('reputations.create', ['user' => $user]) }}"
+                        class="text-decoration-none text-reset fs-5" id="add-vote" data-bs-toggle="tooltip"
+                        data-bs-placement="bottom" data-bs-title="{{ __('users.show.vote') }}">
+                        <span class="text-success fw-medium">
+                            <i class="bi bi-arrow-up"></i>{{ $pointsTotal['positive'] }}
+                        </span>
+                        <span>/</span>
+                        <span class="text-danger fw-medium">
+                            <i class="bi bi-arrow-down"></i>{{ $pointsTotal['negative'] }}
+                        </span>
+                    </a>
+                @else
+                    <a href="#" class="text-decoration-none text-reset fs-5 forbidden-clickable" id="add-vote">
+                        <span class="text-success fw-medium">
+                            <i class="bi bi-arrow-up"></i>{{ $pointsTotal['positive'] }}
+                        </span>
+                        <span>/</span>
+                        <span class="text-danger fw-medium">
+                            <i class="bi bi-arrow-down"></i>{{ $pointsTotal['negative'] }}
+                        </span>
+                    </a>
+                @endif
             </div>
             <div class="col text-end">
                 <i>

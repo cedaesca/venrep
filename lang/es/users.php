@@ -8,6 +8,8 @@ return [
             'heading' => 'Historial de reputación',
             'asc' => 'Click para mostrar los más antiguos primero',
             'desc' => 'Click para mostrar los más recientes primero',
+            'only_negatives' => 'Mostrar solo las negativas',
+            'only_positives' => 'Mostrar solo las positivas',
             'columns' => [
                 'giver' => 'Otorgada por',
                 'type' => 'Tipo de puntuación',

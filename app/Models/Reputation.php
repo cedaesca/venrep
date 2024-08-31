@@ -36,6 +36,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Reputation whereRecommendsZelle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reputation whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reputation whereUpdatedAt($value)
+ * @property int $recommends_paypal
+ * @property int $recommends_others
+ * @method static \Illuminate\Database\Eloquent\Builder|Reputation negatives()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reputation positives()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reputation whereRecommendsOthers($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reputation whereRecommendsPaypal($value)
  * @mixin \Eloquent
  */
 class Reputation extends Model
@@ -61,6 +67,16 @@ class Reputation extends Model
     public function receiver(): BelongsTo
     {
         return $this->belongsTo(User::class, 'given_to');
+    }
+
+    public function scopePositives($query)
+    {
+        return $query->where('type', ReputationType::POSITIVE->value);
+    }
+
+    public function scopeNegatives($query)
+    {
+        return $query->where('type', ReputationType::NEGATIVE->value);
     }
 
     /**

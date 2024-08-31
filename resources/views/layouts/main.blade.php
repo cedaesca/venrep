@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title') - {{ config('app.name') }}</title>
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
+    @stack('js')
 </head>
 
 <body>

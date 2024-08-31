@@ -40,9 +40,17 @@ class UsersController extends Controller
     {
         $orderBy = $request->order ?? 'desc';
 
-        $reputations = $user
-            ->receivedReputation()
-            ->with('issuer')
+        $reputations = $user->receivedReputation();
+
+        if ($request->filter === 'positives') {
+            $reputations = $reputations->positives();
+        }
+
+        if ($request->filter === 'negatives') {
+            $reputations = $reputations->negatives();
+        }
+
+        $reputations = $reputations->with('issuer')
             ->orderBy('created_at', $orderBy)
             ->paginate(10)
             ->appends($request->query());

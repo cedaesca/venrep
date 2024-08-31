@@ -2,6 +2,10 @@
 
 @section('title', $user->username)
 
+@push('js')
+    @vite(['resources/js/users/show.js'])
+@endpush
+
 @section('content')
     <div class="container">
         @if ($user->id !== Auth::user()->id)
@@ -68,21 +72,23 @@
                         <i class="bi bi-funnel-fill"></i>
                     </label>
                     <select id="filter-type" class="form-select me-2">
-                        <option selected>Mostrar todas</option>
-                        <option>Mostrar solo negativas</option>
-                        <option>Mostrar solo positivas</option>
+                        <option @selected(!request()->has('filter'))>Mostrar todas</option>
+                        <option @selected(request()->filter === 'negatives') value="negatives">
+                            {{ __('users.show.rep_history.only_negatives') }}</option>
+                        <option @selected(request()->filter === 'positives') value="positives">
+                            {{ __('users.show.rep_history.only_positives') }}</option>
                     </select>
                 </form>
             </div>
             <div class="col-8 text-end">
                 @if (request()->order === 'asc')
                     <a class="text-decoration-none text-reset"
-                        href="{{ route('users.show', ['user' => $user, 'order' => 'desc']) }}">
+                        href="{{ route('users.show', array_merge(request()->query(), ['user' => $user, 'order' => 'desc'])) }}">
                         <i class="bi bi-sort-up fs-3 clickable" data-bs-toggle="tooltip" data-bs-placement="bottom"
                             data-bs-title="{{ __('users.show.rep_history.desc') }}"></i>
                     </a>
                 @else
-                    <a href="{{ route('users.show', ['user' => $user, 'order' => 'asc']) }}"
+                    <a href="{{ route('users.show', array_merge(request()->query(), ['user' => $user, 'order' => 'asc'])) }}"
                         class="text-decoration-none text-reset">
                         <i class="bi bi-sort-down fs-3" data-bs-toggle="tooltip" data-bs-placement="bottom"
                             data-bs-title="{{ __('users.show.rep_history.asc') }}"></i>

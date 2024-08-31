@@ -24,6 +24,8 @@ return new class extends Migration
             $table->boolean('recommends_paypal')->default(false);
             $table->boolean('recommends_others')->default(false);
             $table->timestamps();
+
+            $table->unique(['given_by', 'given_to']);
         });
     }
 

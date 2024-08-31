@@ -132,4 +132,17 @@ class User extends Authenticatable implements MustVerifyEmail
             'negative' => $reputationCounts->negative_count ?? 0,
         ];
     }
+
+    public function giveReputationTo(User $recipient, array $attributes)
+    {
+        return $this->issuedReputation()->create(array_merge($attributes, [
+            'given_to' => $recipient->id,
+        ]));
+    }
+
+
+    public function hasBeenGivenRepBy(User $user): bool
+    {
+        return $this->receivedReputation()->whereBelongsTo($user, 'issuer')->exists();
+    }
 }

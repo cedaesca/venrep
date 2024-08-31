@@ -22,5 +22,6 @@ return [
             ],
             'submit' => 'Añadir reputación'
         ]
-    ]
+    ],
+    'already_voted' => 'No puedes volver a votar por éste usuario.'
 ];

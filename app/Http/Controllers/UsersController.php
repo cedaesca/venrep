@@ -18,22 +18,6 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(Request $request, User $user)
@@ -55,14 +39,12 @@ class UsersController extends Controller
             ->paginate(10)
             ->appends($request->query());
 
-        $hasVisitorVotedUser = $user->receivedReputation()->where(['given_by' => Auth::user()->id])->count();
-
         return view('users.show', [
             'user' => $user,
             'pointsTotal' => $user->getTotalReputationPoints(),
             'positiveReputation' => ReputationType::POSITIVE->value,
             'reputations' => $reputations,
-            'hasVisitorVotedUser' => $hasVisitorVotedUser > 0 ? true : false
+            'hasVisitorVotedUser' => $user->hasBeenGivenRepBy(Auth::user())
         ]);
     }
 

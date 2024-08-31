@@ -8,13 +8,25 @@
 
 @section('content')
     <div class="container">
+        @error('already_voted')
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-danger d-flex align-items-center">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        {{ $message }}
+                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        @enderror
         @if ($user->id !== Auth::user()->id)
             <div class="row">
                 <div class="col">
                     <div class="alert alert-warning d-flex align-items-center">
                         <i class="bi bi-exclamation-triangle me-2"></i>
                         {{ __('users.show.notifications.be_safe') }}
-                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
                     </div>
                 </div>
             </div>

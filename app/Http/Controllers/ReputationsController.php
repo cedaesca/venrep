@@ -12,6 +12,10 @@ class ReputationsController extends Controller
 {
     public function create(User $user)
     {
+        if ($user->hasBeenGivenRepBy(Auth::user())) {
+            return $this->handleAlreadyVoted($user);
+        }
+
         return view('reputations.create', [
             'user' => $user,
             'reputationTypes' => [
@@ -23,6 +27,10 @@ class ReputationsController extends Controller
 
     public function store(Request $request, User $user)
     {
+        if ($user->hasBeenGivenRepBy(Auth::user())) {
+            return $this->handleAlreadyVoted($user);
+        }
+
         $validReputationTypes = array_column(ReputationType::cases(), 'value');
 
         $validRecommendedTransactions = [
@@ -46,11 +54,16 @@ class ReputationsController extends Controller
             $mappedTransactions[$value] = true;
         }
 
-        Auth::user()->issuedReputation()->create(array_merge($mappedTransactions, [
-            'given_to' => $user->id,
-            'type' => $validated['rep_type']
-        ]));
+        Auth::user()->giveReputationTo($user, array_merge($mappedTransactions, ['type' => $validated['rep_type']]));
 
         return to_route('users.show', $user);
+    }
+
+    private function handleAlreadyVoted(User $user)
+    {
+        return to_route('users.show', $user)
+            ->withErrors([
+                'already_voted' => __('reputations.already_voted')
+            ]);
     }
 }

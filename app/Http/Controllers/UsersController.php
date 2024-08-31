@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reputation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,31 +18,34 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
-        if ($user->id !== Auth::user()->id) {
-            abort(403);
+        $orderBy = $request->order ?? 'desc';
+
+        $reputations = $user->receivedReputation();
+
+        if ($request->filter === 'positives') {
+            $reputations = $reputations->positives();
         }
 
-        return view('users.show');
+        if ($request->filter === 'negatives') {
+            $reputations = $reputations->negatives();
+        }
+
+        $reputations = $reputations->with('issuer')
+            ->orderBy('created_at', $orderBy)
+            ->paginate(10)
+            ->appends($request->query());
+
+        return view('users.show', [
+            'user' => $user,
+            'pointsTotal' => $user->getTotalReputationPoints(),
+            'positiveReputation' => Reputation::TYPES['positive'],
+            'reputations' => $reputations,
+            'hasVisitorVotedUser' => $user->hasBeenGivenRepBy(Auth::user())
+        ]);
     }
 
     /**

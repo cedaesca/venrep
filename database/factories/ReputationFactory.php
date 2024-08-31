@@ -26,6 +26,8 @@ class ReputationFactory extends Factory
             'recommends_binance' => $this->pickOne(true, false),
             'recommends_ves' => $this->pickOne(true, false),
             'recommends_cash' => $this->pickOne(true, false),
+            'recommends_paypal' => $this->pickOne(true, false),
+            'recommends_others' => $this->pickOne(true, false),
         ];
     }
 

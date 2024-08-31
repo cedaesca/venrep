@@ -52,6 +52,18 @@
                             <label class="form-check-label"
                                 for="ves">{{ __('reputations.create.inputs.transaction_options.ves') }}</label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="recommends-paypal"
+                                name="recommended_transactions[]" value="recommends_paypal">
+                            <label class="form-check-label"
+                                for="paypal">{{ __('reputations.create.inputs.transaction_options.paypal') }}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="recommends-others"
+                                name="recommended_transactions[]" value="recommends_others">
+                            <label class="form-check-label"
+                                for="others">{{ __('reputations.create.inputs.transaction_options.others') }}</label>
+                        </div>
                     </div>
                     <hr>
                     <button type="submit"

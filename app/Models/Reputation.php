@@ -42,13 +42,15 @@ class Reputation extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'type',
-        'given_to',
-        'recommends_zelle',
-        'recommends_binance',
-        'recommends_ves',
-        'recommends_cash'
+    protected $guarded = ['given_by'];
+
+    public $transactionRecomendationOptions = [
+        'zelle',
+        'binance',
+        'cash',
+        'ves',
+        'paypal',
+        'others'
     ];
 
     public function issuer(): BelongsTo
@@ -70,17 +72,12 @@ class Reputation extends Model
     {
         $recommendations = [];
 
-        if ($this->recommends_zelle) {
-            $recommendations[] = __('reputations.create.inputs.transaction_options.zelle');
-        }
-        if ($this->recommends_binance) {
-            $recommendations[] = __('reputations.create.inputs.transaction_options.binance');
-        }
-        if ($this->recommends_cash) {
-            $recommendations[] = __('reputations.create.inputs.transaction_options.cash');
-        }
-        if ($this->recommends_ves) {
-            $recommendations[] = __('reputations.create.inputs.transaction_options.ves');
+        foreach ($this->transactionRecomendationOptions as $recommendation) {
+            $recomendationProperty = "recommends_{$recommendation}";
+
+            if ($this->{$recomendationProperty}) {
+                $recommendations[] = __("reputations.create.inputs.transaction_options.{$recommendation}");
+            }
         }
 
         return $recommendations;

@@ -29,7 +29,9 @@ class ReputationsController extends Controller
             'recommends_zelle',
             'recommends_cash',
             'recommends_ves',
-            'recommends_binance'
+            'recommends_binance',
+            'recommends_paypal',
+            'recommends_others',
         ];
 
         $validated = $request->validate([

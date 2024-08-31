@@ -16,7 +16,9 @@ return [
                 'zelle' => 'Zelle',
                 'ves' => 'Bolívares',
                 'cash' => 'Efectivo',
-                'binance' => 'Binance'
+                'binance' => 'Binance',
+                'paypal' => 'PayPal',
+                'others' => 'Otros'
             ],
             'submit' => 'Añadir reputación'
         ]

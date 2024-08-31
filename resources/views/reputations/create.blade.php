@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@push('js')
+    @vite(['resources/js/reputations/create.js'])
+@endpush
+
 @section('title', __('reputations.create.view_title', ['username' => $user->username]))
 
 @section('content')
@@ -7,7 +11,7 @@
         <div class="card card-white-transparent col-md-6 p-4">
             <div class="card-body">
                 <h2 class="text-center mb-4">{{ __('reputations.create.create', ['username' => $user->username]) }}</h2>
-                <form action="{{ route('reputations.store', $user) }}" method="POST">
+                <form action="{{ route('reputations.store', $user) }}" method="POST" id="add-rep">
                     @csrf
                     <div class="mb-3">
                         <label for="rep-type" class="form-label">{{ __('reputations.create.inputs.rep_type') }}</label>

@@ -4,7 +4,8 @@ import laravel from 'laravel-vite-plugin';
 const custom = {
     styles: [],
     scripts: [
-        'resources/js/users/show.js'
+        'resources/js/users/show.js',
+        'resources/js/reputations/create.js'
     ]
 };
 

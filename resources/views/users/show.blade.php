@@ -75,8 +75,19 @@
                 </form>
             </div>
             <div class="col-8 text-end">
-                <i class="bi bi-sort-up fs-3 clickable" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    data-bs-title="{{ __('general.orders.asc') }}"></i>
+                @if (request()->order === 'asc')
+                    <a class="text-decoration-none text-reset"
+                        href="{{ route('users.show', ['user' => $user, 'order' => 'desc']) }}">
+                        <i class="bi bi-sort-up fs-3 clickable" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            data-bs-title="{{ __('users.show.rep_history.desc') }}"></i>
+                    </a>
+                @else
+                    <a href="{{ route('users.show', ['user' => $user, 'order' => 'asc']) }}"
+                        class="text-decoration-none text-reset">
+                        <i class="bi bi-sort-down fs-3" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            data-bs-title="{{ __('users.show.rep_history.asc') }}"></i>
+                    </a>
+                @endif
             </div>
         </div>
         <table class="table">
@@ -108,7 +119,7 @@
                             @endif
                         </td>
                         <td>{{ implode(', ', $reputation->getRecommendedTransactions()) }}</td>
-                        <td>{{ $reputation->created_at->translatedFormat('j \\d\\e F, Y') }}</td>
+                        <td>{{ $reputation->created_at }}</td>
                     </tr>
                 @endforeach
             </tbody>

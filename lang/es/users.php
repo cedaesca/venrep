@@ -6,6 +6,8 @@ return [
         'vote' => 'Haz click para añadir un punto a éste usuario',
         'rep_history' => [
             'heading' => 'Historial de reputación',
+            'asc' => 'Haz click para ordenar de forma ascendente',
+            'desc' => 'Haz click para ordenar de forma descendente',
             'columns' => [
                 'giver' => 'Otorgada por',
                 'type' => 'Tipo de puntuación',

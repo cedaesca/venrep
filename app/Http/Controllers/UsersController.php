@@ -36,9 +36,13 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
-        $user->load('receivedReputation.issuer');
+        $orderBy = $request->order ?? 'desc';
+
+        $user->load(['receivedReputation' => function ($query) use ($orderBy) {
+            $query->with('issuer')->orderBy('created_at', $orderBy);
+        }]);
 
         return view('users.show', [
             'user' => $user,
